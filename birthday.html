@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    min-height:100vh;
+
+    overflow:hidden;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-family:'Poppins',sans-serif;
+
+    background:
+    radial-gradient(circle at top left,#ffbfdc 0%,transparent 30%),
+    radial-gradient(circle at bottom right,#cdb8ff 0%,transparent 30%),
+    linear-gradient(135deg,#1b1d3b,#222655,#2b3170);
+
+    position:relative;
+}
+
+/* Floating Emojis */
+
+.float{
+    position:absolute;
+    font-size:24px;
+    animation:float 12s linear infinite;
+    opacity:0.8;
+}
+
+@keyframes float{
+
+    0%{
+        transform:translateY(100vh) rotate(0deg);
+    }
+
+    100%{
+        transform:translateY(-120vh) rotate(360deg);
+    }
+
+}
+
+/* Main Card */
+
+.card{
+
+    width:90%;
+    max-width:520px;
+
+    padding:50px 35px;
+
+    border-radius:35px;
+
+    text-align:center;
+
+    background:rgba(255,255,255,0.1);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    box-shadow:0 20px 50px rgba(0,0,0,0.35);
+
+    position:relative;
+
+    z-index:2;
+}
+
+/* Title */
+
+.title{
+
+    font-family:'Great Vibes',cursive;
+
+    font-size:4.5rem;
+
+    background:linear-gradient(to right,#ffd7eb,#d8c4ff);
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+}
+
+.message{
+
+    color:#f3f3f3;
+
+    margin-top:20px;
+
+    line-height:2;
+
+    font-size:1rem;
+}
+
+/* Pictures */
+
+.photo{
+
+    position:absolute;
+
+    width:180px;
+
+    background:white;
+
+    padding:10px 10px 45px 10px;
+
+    border-radius:8px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,0.4);
+
+    transition:0.4s;
+}
+
+.photo:hover{
+
+    transform:scale(1.05);
+
+}
+
+/* Tape */
+
+.tape{
+
+    position:absolute;
+
+    width:75px;
+    height:24px;
+
+    background:rgba(255,245,180,0.75);
+
+    top:-12px;
+    left:50%;
+
+    transform:translateX(-50%) rotate(-3deg);
+
+    border-left:2px dashed rgba(255,255,255,0.5);
+    border-right:2px dashed rgba(255,255,255,0.5);
+
+}
+
+/* Images */
+
+.photo img{
+
+    width:100%;
+    height:180px;
+
+    object-fit:cover;
+
+    border-radius:5px;
+
+}
+
+.caption{
+
+    text-align:center;
+
+    margin-top:12px;
+
+    color:#555;
+
+    font-weight:600;
+
+    font-size:0.9rem;
+}
+
+/* Positions */
+
+.photo1{
+
+    top:30px;
+    left:40px;
+
+    transform:rotate(-12deg);
+}
+
+.photo2{
+
+    top:50px;
+    right:40px;
+
+    transform:rotate(10deg);
+}
+
+.photo3{
+
+    bottom:40px;
+    left:60px;
+
+    transform:rotate(8deg);
+}
+
+.photo4{
+
+    bottom:30px;
+    right:50px;
+
+    transform:rotate(-10deg);
+}
+
+/* Music Button */
+
+.music-btn{
+
+    position:fixed;
+
+    top:20px;
+    right:20px;
+
+    width:58px;
+    height:58px;
+
+    border:none;
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#ff8fc5,#ba94ff);
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    z-index:10;
+
+    box-shadow:0 10px 25px rgba(186,148,255,0.4);
+}
+
+/* Mobile */
+
+@media(max-width:900px){
+
+    .photo{
+        display:none;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .title{
+        font-size:3.5rem;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Floating Emojis -->
+
+<div class="float" style="left:10%; animation-duration:12s;">✨</div>
+<div class="float" style="left:30%; animation-duration:15s;">💖</div>
+<div class="float" style="left:60%; animation-duration:10s;">🌸</div>
+<div class="float" style="left:85%; animation-duration:13s;">🦋</div>
+
+<!-- Music -->
+
+<button class="music-btn" onclick="toggleMusic()">♫</button>
+
+<audio id="bgMusic" loop>
+    <source src="your-song.mp3" type="audio/mp3">
+</audio>
+
+<!-- Photos Around Background -->
+
+<div class="photo photo1">
+
+    <div class="tape"></div>
+
+    <img src="photo1.jpg">
+
+    <div class="caption">
+        favorite memory ✨
+    </div>
+
+</div>
+
+<div class="photo photo2">
+
+    <div class="tape"></div>
+
+    <img src="photo2.jpg">
+
+    <div class="caption">
+        cutest moments 💖
+    </div>
+
+</div>
+
+<div class="photo photo3">
+
+    <div class="tape"></div>
+
+    <img src="photo3.jpg">
+
+    <div class="caption">
+        forever besties 🌸
+    </div>
+
+</div>
+
+<div class="photo photo4">
+
+    <div class="tape"></div>
+
+    <img src="photo4.jpg">
+
+    <div class="caption">
+        love you always 🦋
+    </div>
+
+</div>
+
+<!-- Main Birthday Card -->
+
+<div class="card">
+
+    <h1 class="title">
+        Happy Birthday 💜
+    </h1>
+
+    <p class="message">
+
+        Replace this with your own birthday message ✨ <br><br>
+
+        Write memories, appreciation,
+        inside jokes, or a sweet paragraph here.
+        Make it personal and cute 💕
+
+    </p>
+
+</div>
+
+<script>
+
+const music=document.getElementById("bgMusic");
+
+function toggleMusic(){
+
+    if(music.paused){
+
+        music.play();
+
+    }
+
+    else{
+
+        music.pause();
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
