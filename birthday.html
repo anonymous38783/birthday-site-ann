@@ -9,378 +9,464 @@
 
 <style>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+*{ margin:0; padding:0; box-sizing:border-box; }
 
 body{
-
     min-height:100vh;
-
     overflow:hidden;
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     font-family:'Poppins',sans-serif;
-
     background:
-    radial-gradient(circle at top left,#ffbfdc 0%,transparent 30%),
-    radial-gradient(circle at bottom right,#cdb8ff 0%,transparent 30%),
-    linear-gradient(135deg,#1b1d3b,#222655,#2b3170);
-
+        radial-gradient(circle at 15% 20%,#ff9ed2 0%,transparent 28%),
+        radial-gradient(circle at 85% 80%,#b49eff 0%,transparent 28%),
+        radial-gradient(circle at 80% 10%,#ff78c0 0%,transparent 18%),
+        radial-gradient(circle at 20% 85%,#7b6aff 0%,transparent 18%),
+        linear-gradient(135deg,#14163a,#1e2260,#271e55);
     position:relative;
 }
 
-/* Floating Emojis */
+.stars{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    overflow:hidden;
+}
+.star{
+    position:absolute;
+    border-radius:50%;
+    background:white;
+    animation:twinkle var(--dur,3s) ease-in-out infinite var(--delay,0s);
+}
+@keyframes twinkle{
+    0%,100%{ opacity:0.1; transform:scale(1); }
+    50%{ opacity:0.8; transform:scale(1.4); }
+}
 
 .float{
     position:absolute;
     font-size:24px;
-    animation:float 12s linear infinite;
-    opacity:0.8;
+    animation:float var(--dur,12s) linear infinite var(--delay,0s);
+    opacity:0;
+    z-index:1;
+    filter:drop-shadow(0 0 6px rgba(255,200,230,0.6));
 }
-
 @keyframes float{
-
-    0%{
-        transform:translateY(100vh) rotate(0deg);
-    }
-
-    100%{
-        transform:translateY(-120vh) rotate(360deg);
-    }
-
+    0%{ transform:translateY(105vh) rotate(0deg); opacity:0; }
+    5%{ opacity:0.85; }
+    95%{ opacity:0.85; }
+    100%{ transform:translateY(-20vh) rotate(360deg); opacity:0; }
 }
-
-/* Main Card */
 
 .card{
-
     width:90%;
-    max-width:520px;
-
-    padding:50px 35px;
-
-    border-radius:35px;
-
+    max-width:500px;
+    padding:0;
+    border-radius:40px;
     text-align:center;
-
-    background:rgba(255,255,255,0.1);
-
-    backdrop-filter:blur(18px);
-
-    border:1px solid rgba(255,255,255,0.15);
-
-    box-shadow:0 20px 50px rgba(0,0,0,0.35);
-
+    background:rgba(255,255,255,0.07);
+    backdrop-filter:blur(28px) saturate(180%);
+    -webkit-backdrop-filter:blur(28px) saturate(180%);
+    border:1px solid rgba(255,255,255,0.14);
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(255,255,255,0.05) inset,
+        0 1px 0 rgba(255,255,255,0.2) inset;
     position:relative;
-
     z-index:2;
+    display:flex;
+    flex-direction:column;
+    max-height:90vh;
+    overflow:hidden;
+    animation:cardEntrance 0.9s cubic-bezier(.34,1.56,.64,1) both;
 }
 
-/* Title */
+.card::before{
+    content:'';
+    position:absolute;
+    inset:-2px;
+    border-radius:42px;
+    background:linear-gradient(135deg,#ff9ed2,#ba94ff,#ff78c0,#8b7aff,#ff9ed2);
+    background-size:300% 300%;
+    animation:borderGlow 6s linear infinite;
+    z-index:-1;
+    opacity:0.5;
+}
+@keyframes borderGlow{
+    0%{ background-position:0% 50%; }
+    50%{ background-position:100% 50%; }
+    100%{ background-position:0% 50%; }
+}
+@keyframes cardEntrance{
+    from{ opacity:0; transform:scale(0.88) translateY(20px); }
+    to{ opacity:1; transform:scale(1) translateY(0); }
+}
+
+.card-inner{
+    border-radius:40px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    height:100%;
+}
+
+.card-header{
+    padding:38px 35px 0;
+    flex-shrink:0;
+    position:relative;
+}
+.card-header::after{
+    content:'✦ ✦ ✦';
+    display:block;
+    font-size:10px;
+    letter-spacing:8px;
+    color:rgba(255,200,230,0.5);
+    margin-top:6px;
+    text-align:center;
+}
 
 .title{
-
     font-family:'Great Vibes',cursive;
-
-    font-size:4.5rem;
-
-    background:linear-gradient(to right,#ffd7eb,#d8c4ff);
-
+    font-size:4.2rem;
+    line-height:1.1;
+    background:linear-gradient(120deg,#ffd7eb 0%,#ffffff 40%,#d8c4ff 70%,#ffd7eb 100%);
+    background-size:250% auto;
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
+    background-clip:text;
+    animation:shimmer 5s linear infinite;
+    filter:drop-shadow(0 0 20px rgba(255,160,210,0.4));
+}
+@keyframes shimmer{
+    0%{ background-position:0% center; }
+    100%{ background-position:250% center; }
+}
 
+.age-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:linear-gradient(135deg,rgba(255,143,197,0.25),rgba(186,148,255,0.25));
+    border:1px solid rgba(255,183,220,0.3);
+    border-radius:50px;
+    padding:5px 16px;
+    margin-top:10px;
+    font-size:0.78rem;
+    color:rgba(255,210,235,0.9);
+    letter-spacing:0.08em;
+    font-weight:500;
+}
+
+.divider{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:18px 35px 0;
+    flex-shrink:0;
+}
+.divider-line{
+    flex:1;
+    height:1px;
+    background:linear-gradient(to right,transparent,rgba(255,190,220,0.35),transparent);
+}
+.divider-icon{ font-size:13px; }
+
+.message-wrap{
+    flex:1;
+    overflow-y:auto;
+    padding:16px 35px 0 35px;
+    min-height:0;
+    scrollbar-width:thin;
+    scrollbar-color:rgba(255,160,210,0.4) transparent;
+}
+.message-wrap::-webkit-scrollbar{ width:4px; }
+.message-wrap::-webkit-scrollbar-track{ background:transparent; }
+.message-wrap::-webkit-scrollbar-thumb{
+    background:linear-gradient(to bottom,#ffb7dc,#ba94ff);
+    border-radius:10px;
 }
 
 .message{
-
-    color:#f3f3f3;
-
-    margin-top:20px;
-
+    color:rgba(240,234,255,0.92);
     line-height:2;
-
-    font-size:1rem;
+    font-size:0.93rem;
+    text-align:left;
+    font-weight:300;
+}
+.message strong{
+    color:#ffd7eb;
+    font-weight:500;
 }
 
-/* Pictures */
+.card-footer{
+    padding:14px 35px 30px;
+    flex-shrink:0;
+}
+
+.scroll-hint{
+    font-size:0.68rem;
+    color:rgba(255,200,230,0.45);
+    text-align:center;
+    margin-bottom:10px;
+    letter-spacing:0.06em;
+    animation:pulse 2.5s ease-in-out infinite;
+    transition:opacity 0.5s;
+}
+@keyframes pulse{
+    0%,100%{ opacity:0.3; }
+    50%{ opacity:1; }
+}
+
+.signoff{
+    text-align:center;
+    font-family:'Great Vibes',cursive;
+    font-size:1.8rem;
+    background:linear-gradient(to right,#ffb7dc,#d8c4ff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin-top:6px;
+    opacity:0.9;
+}
 
 .photo{
-
     position:absolute;
-
-    width:180px;
-
-    background:white;
-
-    padding:10px 10px 45px 10px;
-
-    border-radius:8px;
-
-    box-shadow:0 15px 35px rgba(0,0,0,0.4);
-
-    transition:0.4s;
+    width:175px;
+    background:linear-gradient(145deg,#fffcf7,#f8f0ff);
+    padding:10px 10px 42px;
+    border-radius:6px;
+    box-shadow:
+        0 18px 45px rgba(0,0,0,0.5),
+        0 2px 8px rgba(0,0,0,0.3);
+    transition:transform 0.4s cubic-bezier(.34,1.56,.64,1), box-shadow 0.4s;
+    cursor:default;
 }
-
 .photo:hover{
-
-    transform:scale(1.05);
-
+    transform:scale(1.07) translateY(-4px) !important;
+    z-index:5;
+    box-shadow:0 25px 55px rgba(180,140,255,0.45), 0 4px 12px rgba(0,0,0,0.3);
 }
-
-/* Tape */
-
 .tape{
-
     position:absolute;
-
-    width:75px;
-    height:24px;
-
-    background:rgba(255,245,180,0.75);
-
-    top:-12px;
-    left:50%;
-
-    transform:translateX(-50%) rotate(-3deg);
-
-    border-left:2px dashed rgba(255,255,255,0.5);
-    border-right:2px dashed rgba(255,255,255,0.5);
-
+    width:72px; height:22px;
+    background:rgba(255,248,190,0.8);
+    top:-11px; left:50%;
+    transform:translateX(-50%) rotate(-2deg);
+    border-left:2px dashed rgba(200,190,100,0.4);
+    border-right:2px dashed rgba(200,190,100,0.4);
+    box-shadow:0 2px 6px rgba(0,0,0,0.1);
 }
-
-/* Images */
-
 .photo img{
-
-    width:100%;
-    height:180px;
-
+    width:100%; height:175px;
     object-fit:cover;
-
-    border-radius:5px;
-
+    border-radius:3px;
+    display:block;
 }
-
 .caption{
-
     text-align:center;
-
-    margin-top:12px;
-
-    color:#555;
-
+    margin-top:10px;
+    color:#666;
     font-weight:600;
-
-    font-size:0.9rem;
+    font-size:0.82rem;
+    font-family:'Poppins',sans-serif;
 }
 
-/* Positions */
-
-.photo1{
-
-    top:30px;
-    left:40px;
-
-    transform:rotate(-12deg);
-}
-
-.photo2{
-
-    top:50px;
-    right:40px;
-
-    transform:rotate(10deg);
-}
-
-.photo3{
-
-    bottom:40px;
-    left:60px;
-
-    transform:rotate(8deg);
-}
-
-.photo4{
-
-    bottom:30px;
-    right:50px;
-
-    transform:rotate(-10deg);
-}
-
-/* Music Button */
+.photo1{ top:28px; left:38px; transform:rotate(-11deg); }
+.photo2{ top:45px; right:38px; transform:rotate(9deg); }
+.photo3{ bottom:38px; left:55px; transform:rotate(7deg); }
+.photo4{ bottom:28px; right:48px; transform:rotate(-9deg); }
 
 .music-btn{
-
     position:fixed;
-
-    top:20px;
-    right:20px;
-
-    width:58px;
-    height:58px;
-
-    border:none;
-    border-radius:50%;
-
+    top:20px; right:20px;
+    width:56px; height:56px;
+    border:none; border-radius:50%;
     background:linear-gradient(135deg,#ff8fc5,#ba94ff);
-
     color:white;
-
-    font-size:22px;
-
+    font-size:20px;
     cursor:pointer;
-
     z-index:10;
-
-    box-shadow:0 10px 25px rgba(186,148,255,0.4);
+    box-shadow:0 8px 24px rgba(186,148,255,0.45);
+    transition:transform 0.2s, box-shadow 0.2s;
+    display:flex; align-items:center; justify-content:center;
+}
+.music-btn:hover{
+    transform:scale(1.1);
+    box-shadow:0 12px 32px rgba(186,148,255,0.6);
+}
+.music-btn.playing{
+    animation:musicPulse 1.5s ease-in-out infinite;
+}
+@keyframes musicPulse{
+    0%,100%{ box-shadow:0 8px 24px rgba(186,148,255,0.45), 0 0 0 0 rgba(186,148,255,0.35); }
+    50%{ box-shadow:0 8px 24px rgba(186,148,255,0.6), 0 0 0 12px rgba(186,148,255,0); }
 }
 
-/* Mobile */
+.note{
+    position:fixed;
+    pointer-events:none;
+    font-size:18px;
+    z-index:11;
+    animation:notePop 1.2s ease forwards;
+}
+@keyframes notePop{
+    0%{ opacity:1; transform:translate(0,0) scale(0.8); }
+    100%{ opacity:0; transform:translate(var(--tx),var(--ty)) scale(1.2); }
+}
 
 @media(max-width:900px){
-
-    .photo{
-        display:none;
-    }
-
+    .photo{ display:none; }
 }
-
 @media(max-width:768px){
-
-    .title{
-        font-size:3.5rem;
-    }
-
+    .title{ font-size:3.2rem; }
+    .card{ max-height:none; }
+    .card-header{ padding:30px 24px 0; }
+    .divider{ margin:16px 24px 0; }
+    .message-wrap{ padding:14px 24px 0; overflow-y:visible; }
+    .card-footer{ padding:12px 24px 26px; }
+    body{ overflow:auto; align-items:flex-start; padding:24px 0; }
+    .scroll-hint{ display:none; }
 }
 
 </style>
 </head>
-
 <body>
 
-<!-- Floating Emojis -->
+<div class="stars" id="stars"></div>
 
-<div class="float" style="left:10%; animation-duration:12s;">✨</div>
-<div class="float" style="left:30%; animation-duration:15s;">💖</div>
-<div class="float" style="left:60%; animation-duration:10s;">🌸</div>
-<div class="float" style="left:85%; animation-duration:13s;">🦋</div>
+<div class="float" style="left:8%; --dur:13s; --delay:0s;">✨</div>
+<div class="float" style="left:28%; --dur:16s; --delay:2s;">💖</div>
+<div class="float" style="left:58%; --dur:11s; --delay:0.5s;">🌸</div>
+<div class="float" style="left:83%; --dur:14s; --delay:4s;">🦋</div>
+<div class="float" style="left:48%; --dur:12s; --delay:7s; font-size:20px;">🎂</div>
+<div class="float" style="left:18%; --dur:15s; --delay:9s; font-size:18px;">🎉</div>
+<div class="float" style="left:70%; --dur:10s; --delay:5s; font-size:16px;">🌙</div>
+<div class="float" style="left:38%; --dur:18s; --delay:11s; font-size:16px;">💫</div>
 
-<!-- Music -->
-
-<button class="music-btn" onclick="toggleMusic()">♫</button>
-
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">♫</button>
 <audio id="bgMusic" loop>
     <source src="smiths.mp3" type="audio/mp3">
 </audio>
 
-<!-- Photos Around Background -->
-
 <div class="photo photo1">
-
     <div class="tape"></div>
-
-    <img src="mcpic.jpeg">
-
-    <div class="caption">
-        favorite memory ✨
-    </div>
-
+    <img src="mcpic.jpeg" alt="">
+    <div class="caption">favorite memory ✨</div>
 </div>
-
 <div class="photo photo2">
-
     <div class="tape"></div>
-
-    <img src="annprety.jpeg">
-
-    <div class="caption">
-        my pretty girlll 💖
-    </div>
-
+    <img src="annprety.jpeg" alt="">
+    <div class="caption">my pretty girlll 💖</div>
 </div>
-
 <div class="photo photo3">
-
     <div class="tape"></div>
-
-    <img src="uwuann.jpeg">
-
-    <div class="caption">
-        uwu 🌸
-    </div>
-
+    <img src="uwuann.jpeg" alt="">
+    <div class="caption">uwu 🌸</div>
 </div>
-
 <div class="photo photo4">
-
     <div class="tape"></div>
-
-    <img src="annpretty.jpeg">
-
-    <div class="caption">
-        love you always 🦋
-    </div>
-
+    <img src="annpretty.jpeg" alt="">
+    <div class="caption">love you always 🦋</div>
 </div>
-
-<!-- Main Birthday Card -->
 
 <div class="card">
+  <div class="card-inner">
 
-    <h1 class="title">
-        Happy Birthday My Annammaaa
-    </h1>
+    <div class="card-header">
+        <h1 class="title">Happy Birthday My Annammaaa</h1>
+        <div class="age-badge">🎀 &nbsp;turning 17 &nbsp;🎀</div>
+    </div>
 
-    <p class="message">
+    <div class="divider">
+        <div class="divider-line"></div>
+        <span class="divider-icon">💌</span>
+        <div class="divider-line"></div>
+    </div>
 
-        Happy birthday mll!!! <br><br>
+    <div class="message-wrap" id="messageWrap">
+        <p class="message">
+            <strong>Happy birthday mll!!!</strong> <br><br>
 
-        Cant believe ur 17 ammachii. 
-        I hope u have an amazing day and yr ahead filled with happiness nd memories u cherish forevrrr. ugh i wish i was also there with u rn but ugh 😔
-        I dont think ive ever given u a bday gift on tym, i couldnt last yr cuz i came to this hellhole nd idk if i even gave u a gift the yr before tht😭😭
-        Im so happy i can atleast give u this man. (i didnt copy paste jefs code cuz ew u deserve better nd i think this came out better than his 🤭)
-        I miss u sm  man sometimes i look at my highlights nd see u nd feel sad ugh i hope we meet next yr atleast
-        I hope tis yr goes lyk u hope it does. hv lotsss of fun for ur senior yr okiee nd make amazing memories nd still study well nd do ur best babess
-        Im so happyyy i hv u as my friend mann u were always there to listen to the dum shi i say nd give me amazingg memories
-        ur so aweosome sauce gng 😔🤞
-        You deserve all the good things u want in life i hope u never stop believing in urself because YOUR capable of achieving so much hehe.
-        ilysm and wish u oliii the bestt
-        ok babes hv smmmm fun on ur special day nd eat a lot of yummy food nd cake (save sum for me u bigback)
-        LYSMMM BYEEE MUAHHH
-        
+            Cant believe ur 17 ammachii. 
+            I hope u have an amazing day and yr ahead filled with happiness nd memories u cherish forevrrr. ugh i wish i was also there with u rn but ugh 😔
+            I dont think ive ever given u a bday gift on tym, i couldnt last yr cuz i came to this hellhole nd idk if i even gave u a gift the yr before tht 😭😭
+            Im so happy i can atleast give u this man. (i didnt copy paste jefs code cuz ew u deserve better nd i think this came out better than his 🤭)
+            I miss u sm man sometimes i look at my highlights nd see u nd feel sad ugh i hope we meet next yr atleast
+            I hope tis yr goes lyk u hope it does. hv lotsss of fun for ur senior yr okiee nd make amazing memories nd still study well nd do ur best babess
+            Im so happyyy i hv u as my friend mann u were always there to listen to the dum shi i say nd give me amazingg memories
+            ur so aweosome sauce gng 😔🤞
+            You deserve all the good things u want in life i hope u never stop believing in urself because YOUR capable of achieving so much hehe.
+            ilysm and wish u oliii the bestt
+            ok babes hv smmmm fun on ur special day nd eat a lot of yummy food nd cake (save sum for me u bigback)
+            <br><br>
+            <strong>LYSMMM BYEEE MUAHHH</strong>
+        </p>
+    </div>
 
-    </p>
+    <div class="card-footer">
+        <div class="scroll-hint" id="scrollHint">scroll to read more &nbsp;↓</div>
+        <div class="signoff">with love always 💖</div>
+    </div>
 
+  </div>
 </div>
 
 <script>
 
-const music=document.getElementById("bgMusic");
-
-function toggleMusic(){
-
-    if(music.paused){
-
-        music.play();
-
-    }
-
-    else{
-
-        music.pause();
-
-    }
-
+const starsEl = document.getElementById('stars');
+for(let i=0;i<80;i++){
+    const s = document.createElement('div');
+    s.className='star';
+    const size = Math.random()*2+1;
+    s.style.cssText=`width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--dur:${2+Math.random()*4}s;--delay:${Math.random()*5}s;`;
+    starsEl.appendChild(s);
 }
 
-</script>
+const music = document.getElementById('bgMusic');
+const btn = document.getElementById('musicBtn');
+const notes = ['♩','♪','♫','♬'];
 
+function spawnNote(){
+    const n = document.createElement('div');
+    n.className='note';
+    n.textContent = notes[Math.floor(Math.random()*notes.length)];
+    const rect = btn.getBoundingClientRect();
+    n.style.left = rect.left + rect.width/2 + 'px';
+    n.style.top  = rect.top  + rect.height/2 + 'px';
+    n.style.setProperty('--tx', (Math.random()*60-30)+'px');
+    n.style.setProperty('--ty', (-(Math.random()*50+20))+'px');
+    n.style.color = ['#ffb7dc','#d8c4ff','#ffffff'][Math.floor(Math.random()*3)];
+    document.body.appendChild(n);
+    setTimeout(()=>n.remove(), 1200);
+}
+
+let noteInterval;
+function toggleMusic(){
+    if(music.paused){
+        music.play();
+        btn.classList.add('playing');
+        btn.textContent='♬';
+        noteInterval = setInterval(spawnNote, 400);
+    } else {
+        music.pause();
+        btn.classList.remove('playing');
+        btn.textContent='♫';
+        clearInterval(noteInterval);
+    }
+}
+
+const wrap = document.getElementById('messageWrap');
+const hint = document.getElementById('scrollHint');
+wrap.addEventListener('scroll',()=>{
+    const atBottom = wrap.scrollTop + wrap.clientHeight >= wrap.scrollHeight - 12;
+    hint.style.opacity = atBottom ? '0' : '';
+});
+window.addEventListener('load',()=>{
+    if(wrap.scrollHeight <= wrap.clientHeight) hint.style.display='none';
+});
+
+</script>
 </body>
 </html>
